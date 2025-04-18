@@ -1,0 +1,71 @@
+.myBG {
+    height: 100vh;
+    background: url("../assets/bg/chicago.jpg");
+    background-size: cover;
+}
+
+.intro {
+    height: 300px;
+    display: flex;
+    justify-content: end;
+    align-items: end;
+    text-align: center;
+}
+
+.title {
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1;
+    text-shadow: 2px 2px black;
+    letter-spacing: 4px;
+}
+
+.trending {
+    height: auto;
+    background: url("../assets/bg/avenger.jpg");
+    background-size: cover;
+}
+
+.superhero {
+    background-color: darkred;
+}
+
+.movieSearch{
+    display: flex;
+    margin-top: 2px;
+    margin-right: 10px;
+    margin-left: 10px;
+    height: 35px;
+}
+
+.overview {
+    height: 195px;
+    overflow: hidden;
+}
+
+.cardTitle{
+    height: 50px;
+    background-color: red;
+}
+
+.movieWrapper {
+    flex: 0 0 auto !important;
+    width: 350px !important;
+}
+
+.horizontal_scroll {
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+}
+
+.scroll-container {
+    cursor: grab;
+}
+
+.scroll-container:active{
+    cursor: grabbing;
+}
+
+.images{
+    pointer-events: none;
+}
