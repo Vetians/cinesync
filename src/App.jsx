@@ -4,9 +4,8 @@ import NavigationBar from "./components/NavigationBar"
 import "./style/landingPage.css"
 import Intro from './components/Intro'
 import Trending from "./components/Trending"
-import Superhero from './components/Superhero'
 import SearchPage from './components/SearchPage'
-import LandingPage from './components/landingPage'
+import LandingPage from './components/LandingPage'
 import { useState} from 'react'
 import ScrollToTop from './components/ScrollToTop'
 
