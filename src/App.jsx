@@ -2,8 +2,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import './App.css'
 import NavigationBar from "./components/NavigationBar"
 import "./style/landingPage.css"
-import Intro from './components/Intro'
-import Trending from "./components/Trending"
 import SearchPage from './components/SearchPage'
 import LandingPage from './components/LandingPage'
 import { useState} from 'react'

@@ -1,23 +1,6 @@
-
 import {Card, Container, Row, Col, Navbar, Nav, Button} from "react-bootstrap"
-import NavigationBar from "./NavigationBar"
-
 
 const SearchPage = ({movies, searchQuery}) =>{
-
-    // const [movies, setMovies] =  useState ([])
-    // useEffect (() => {
-    //     axios.get(`${import.meta.env.VITE_BASE_URL}/discover/movie`, {
-    //         params: {
-    //             api_key: import.meta.env.VITE_TMDB_KEY
-    //     }
-    // }).then((response) => {
-    //     console.log("datas => ", response.data)
-    //     setMovies(response.data.results)
-    // })
-
-    // }, [])
-
     return (
         <div>
             <div className="searchPagess d-flex pt-4 pb-5">

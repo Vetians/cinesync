@@ -4,7 +4,6 @@ import { useState, useEffect } from "react"
 import { Swiper,SwiperSlide } from "swiper/react"
 import { Link } from 'react-router-dom'
 import { EffectCoverflow, Navigation, Pagination } from "swiper/modules"
-import { BsChevronRight, BsChevronLeft } from "react-icons/bs";
 
 import 'swiper/css'
 import 'swiper/css/effect-coverflow'
