@@ -31,12 +31,22 @@ const Upcoming = () => {
                 <h1 className="text-white">UPCOMING MOVIE</h1>
                 <div className="d-flex justify-content-end gap-1">
                     <Button
-                    className="swiperLeftUpcoming">
+                    className="swiperLeftUpcoming"
+                    style={{
+                        backgroundColor:"#FF6500",
+                        borderColor:"#FF6500"
+                    }}
+                    >
                         <FaArrowLeft />
                     </Button>
 
                     <Button
-                    className="swiperRightUpcoming">
+                    className="swiperRightUpcoming"
+                    style={{
+                        backgroundColor:"#FF6500",
+                        borderColor:"#FF6500"
+                    }}
+                    >
                         <FaArrowRight/>
                     </Button>
                 </div>

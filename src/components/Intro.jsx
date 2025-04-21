@@ -39,12 +39,35 @@ const Intro = () => {
           justifyContent:"center",
           alignItems:"end",
         }}>
+          <div className="desktopOverviewIntro d-none d-md-flex">
+            <div className="introTitle text-white"
+            style={{
+              display:"flex",
+              // backgroundColor:"red",
+              height:"75%",
+              width:"25%",
+              position:"absolute",
+              left:"0px",
+              top:"0",
+              paddingTop:"100px",
+              paddingLeft:"50px",
+              paddingRight:"20px",
+              flexDirection:"column"
+            }}
+            >
+              {activeSlide &&(<h3>{activeSlide.title}</h3>)}
+              {activeSlide &&(<p>{activeSlide.overview}</p>)}
+              <br />
+              {activeSlide &&(<p>{activeSlide.release_date}</p>)}
+            </div>
+          </div>
+
           <div className="desktopBackdrop d-none d-md-flex">
           {activeSlide && (
             <div 
             className="intro-backdrop"
             style={{
-              backgroundImage:`linear-gradient(to right, rgba(0,0,0,0.9), rgba(0,0,0,0)), url(${import.meta.env.VITE_IMG_URL}/${activeSlide.backdrop_path})`,
+              backgroundImage:`linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 20%), linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 20%), url(${import.meta.env.VITE_IMG_URL}/${activeSlide.backdrop_path})`,
               position:"absolute",
               top:"0",
               right:"0",
@@ -56,12 +79,35 @@ const Intro = () => {
             ></div>
           )}
           </div>
+
+          <div className="mobileOverviewIntro text-white d-md-none"
+          style={{
+            display:"flex",
+            position:"absolute",
+            height:"50vw",
+            width:"100vw",
+            top:"0",
+            marginTop:"20px",
+            paddingTop:"160px",
+            paddingBottom:"50px",
+            paddingRight:"10px",
+            paddingLeft:"10px",
+            justifyContent:"center",
+            textAlign:"center",
+            flexDirection:"column",
+            overflowY:"auto",
+          }}
+          >
+            {activeSlide && (<h3>{activeSlide.title}</h3>)}
+            {activeSlide &&(<p>{activeSlide.overview}</p>)}
+          </div>
+
           <div className="mobileBackdrop d-md-none">
           {activeSlide && (
             <div 
             className="intro-backdrop"
             style={{
-              backgroundImage:`linear-gradient(to right, rgba(0,0,0,0.6), rgba(0,0,0,0)), url(${import.meta.env.VITE_IMG_URL}/${activeSlide.backdrop_path})`,
+              backgroundImage:`linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 20%), linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 10%), url(${import.meta.env.VITE_IMG_URL}/${activeSlide.backdrop_path})`,
               position:"absolute",
               top:"25%",
               right:"0",

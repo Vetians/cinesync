@@ -20,7 +20,7 @@ const SearchPage = ({movies, searchQuery}) =>{
 
     return (
         <div>
-            <div className="myBG mt-5">
+            <div className="searchPagess d-flex pt-4 pb-5">
             <Container>
                 <br />
                 <h1 className="text-white">Hasil Pencarian untuk: "{searchQuery}" </h1>

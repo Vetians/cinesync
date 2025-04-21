@@ -36,12 +36,20 @@ const Trending = () => {
                 <div className="buttonSwiper d-flex justify-content-end gap-1">
                     <Button
                         className="swiperLeft"
+                        style={{
+                            backgroundColor:"#FF6500",
+                            borderColor:"#FF6500"
+                        }}
                     >
                     <FaArrowLeft/>
                     </Button>
 
                     <Button
                         className="swiperRight"
+                        style={{
+                            backgroundColor:"#FF6500",
+                            borderColor:"#FF6500"
+                        }}
                     >
                     <FaArrowRight/>
                     </Button>

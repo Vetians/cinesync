@@ -1,4 +1,6 @@
 
+
+
 .title {
     font-size: 3rem;
     font-weight: 800;
@@ -9,11 +11,15 @@
 
 .trending {
     height: auto;
-    background-color: darkslategray;
+    background-color: #0B192C;
 }
 
 .superhero {
-    background-color: darkslategray;
+    background-color: #2C2C2C;
+}
+
+.searchPagess {
+    background-color: #2C2C2C;
 }
 
 .movieSearch{
@@ -57,7 +63,7 @@
 }
 
 .upcoming{
-    background-color: darkslategray;
+    background-color: #0B192C;
     padding-bottom: 50px;
 }
 
@@ -124,4 +130,13 @@
 .swiper-button-prev:hover {
   color: white;
   filter: brightness(1.5);
+}
+
+
+.swiperLeftUpcoming:hover, .swiperRightUpcoming:hover {
+    filter: brightness(85%);
+}
+
+.swiperLeft:hover, .swiperRight:hover{
+    filter: brightness(85%);
 }

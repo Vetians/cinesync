@@ -10,7 +10,6 @@ import LandingPage from './components/landingPage'
 import { useState} from 'react'
 import ScrollToTop from './components/ScrollToTop'
 
-
 const App = () => {
 
   const [movies, setMovies] = useState([])
