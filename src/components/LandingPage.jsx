@@ -10,7 +10,7 @@ const LandingPage = () => {
 
     return (
         <div>
-            <div className="myBG">
+            <div className="intro">
             <Intro />
             </div>
             <div className="trending">

@@ -3,6 +3,7 @@ import {Card, Container, Button} from "react-bootstrap"
 import axios from "axios"
 import {Swiper, SwiperSlide} from "swiper/react"
 import { Navigation } from "swiper/modules"
+import { Link } from 'react-router-dom'
 
 import "swiper/css"
 import "swiper/css/navigation"
@@ -29,10 +30,10 @@ const Trending = () => {
             <Container>
                 <br />
             {/* Judul + Tombol Navigasi */}
-            <div className="d-flex">
+            <div className="d-flex justify-content-between w-100 align-items-center">
                 <h1 className="text-white">TRENDING MOVIES</h1>
 
-                <div className="buttonSwiper">
+                <div className="buttonSwiper d-flex justify-content-end gap-1">
                     <Button
                         className="swiperLeft"
                     >
@@ -68,13 +69,15 @@ const Trending = () => {
                                 }}
                                 >
                                 <Card className="movieImage">
-                                    <Card.Img 
-                                        variant="top"
-                                        src={`${import.meta.env.VITE_IMG_URL}/${results.poster_path}`} 
-                                        alt="Test" 
-                                        className="images"
-                                        draggable="false"
+                                    <Link to={`/movie/${results.id}`}>
+                                        <Card.Img 
+                                            variant="top"
+                                            src={`${import.meta.env.VITE_IMG_URL}/${results.poster_path}`} 
+                                            alt="Test" 
+                                            className="images"
+                                            draggable="false"
                                         />
+                                    </Link>
                                 </Card>
                             </SwiperSlide>
                             )

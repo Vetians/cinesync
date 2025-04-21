@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import {Swiper, SwiperSlide} from "swiper/react"
 import {Card, Container, Button} from "react-bootstrap"
 import { Navigation } from "swiper/modules"
+import { Link } from 'react-router-dom'
 
 import "swiper/css"
 import "swiper/css/navigation"
@@ -26,9 +27,9 @@ const Upcoming = () => {
     return (
         <Container className="container-upcoming"> 
             <br />
-            <div className="d-flex">
+            <div className="d-flex justify-content-between align-items-center w-100">
                 <h1 className="text-white">UPCOMING MOVIE</h1>
-                <div className="buttonSwiper">
+                <div className="d-flex justify-content-end gap-1">
                     <Button
                     className="swiperLeftUpcoming">
                         <FaArrowLeft />
@@ -62,13 +63,15 @@ const Upcoming = () => {
                         }}  
                         >
                             <Card>
-                                <Card.Img 
-                                variant="top"
-                                src={`${import.meta.env.VITE_IMG_URL}/${results.poster_path}`}
-                                alt="test"
-                                className="images"
-                                draggable="false"
-                                />
+                                <Link to={`/movie/${results.id}`}>
+                                    <Card.Img 
+                                        variant="top"
+                                        src={`${import.meta.env.VITE_IMG_URL}/${results.poster_path}`}
+                                        alt="test"
+                                        className="images"
+                                        draggable="false"
+                                    />
+                                </Link>
                             </Card>
                         </SwiperSlide>
                     )
