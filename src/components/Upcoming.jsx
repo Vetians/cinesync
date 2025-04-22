@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom'
 import "swiper/css"
 import "swiper/css/navigation"
 
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa"
+import { FaArrowLeft, FaArrowRight, FaPlay } from "react-icons/fa"
 
 const Upcoming = () => {
     const [Upcoming, setUpcoming] = useState([])
@@ -72,15 +72,17 @@ const Upcoming = () => {
                             flexShrink: 0
                         }}  
                         >
-                            <Card>
-                                <Link to={`/movie/${results.id}`}>
+                            <Card className="hover-card">
+                                <Link to={`/movie/${results.id}`} className="card-link">
+                                <div className="card-image-wrapper">
                                     <Card.Img 
                                         variant="top"
                                         src={`${import.meta.env.VITE_IMG_URL}/${results.poster_path}`}
                                         alt="test"
-                                        className="images"
-                                        draggable="false"
-                                    />
+                                        className="card-image"
+                                        />
+                                        <div className="play-icon"><FaPlay/></div>
+                                </div>
                                 </Link>
                             </Card>
                         </SwiperSlide>

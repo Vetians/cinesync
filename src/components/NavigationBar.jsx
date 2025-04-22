@@ -10,6 +10,7 @@ export const NavigationBar = ({onSearchResult, onSearchQuery}) => {
     const [query, setQuery] = useState("")
     const [isScrollingDown, setIsScrollingDown] = useState(false)
     const lastScroll = useRef(0)
+    const [showBottomBackground, setShowBottomBackground] = useState(false)
 
     const handleNavClick = (targetId) => {
         if (location.pathname !== "/"){
@@ -57,13 +58,23 @@ export const NavigationBar = ({onSearchResult, onSearchQuery}) => {
 
     const handleScroll = () => {
         const currentScroll = window.scrollY
+        const intro = document.getElementById("intro")
+        const introHeight = intro?.offsetHeight || 0
+
         if(currentScroll > lastScroll.current) {
             setIsScrollingDown(true)
         }else{
             setIsScrollingDown(false)
         }
         lastScroll.current = currentScroll
+
+        if (currentScroll > introHeight - 600) {
+            setShowBottomBackground(true)
+        } else {
+            setShowBottomBackground(false)
+        }
     }
+
     
     useEffect(() => {
         window.addEventListener("scroll", handleScroll)
@@ -111,7 +122,7 @@ export const NavigationBar = ({onSearchResult, onSearchQuery}) => {
         </Navbar>
                     <Navbar variant="dark">
                         <Container>
-                        <div className="containerBottom d-md-none">
+                        <div className={`containerBottom d-md-none ${showBottomBackground ? 'solid' : 'transparent'}`}>
                             <Nav variant="dark" className="d-flex flex-row w-100 justify-content-around">
                             <NavItem>
                                 <Nav.Link onClick={() => {handleNavClick("intro")}}>Home</Nav.Link>

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { Swiper,SwiperSlide } from "swiper/react"
 import { Link } from 'react-router-dom'
 import { EffectCoverflow, Navigation, Pagination } from "swiper/modules"
+import { FaPlay } from "react-icons/fa"
 
 import 'swiper/css'
 import 'swiper/css/effect-coverflow'
@@ -83,22 +84,29 @@ const Intro = () => {
           style={{
             display:"flex",
             position:"absolute",
-            height:"50vw",
+            height:"20vw",
             width:"100vw",
-            top:"0",
+            top:"30px",
             marginTop:"20px",
             paddingTop:"160px",
             paddingBottom:"50px",
             paddingRight:"10px",
             paddingLeft:"10px",
-            justifyContent:"center",
-            textAlign:"center",
-            flexDirection:"column",
+            justifyContent:"start",
+            textAlign:"left",
+            alignItems:"start",
             overflowY:"auto",
+            zIndex:10
           }}
           >
+            <div className="textWrapperMobile" 
+            style={{
+              position:"absolute",
+              top:"0px"
+            }}>
             {activeSlide && (<h3>{activeSlide.title}</h3>)}
-            {activeSlide &&(<p>{activeSlide.overview}</p>)}
+            </div>
+            {/* {activeSlide &&(<p>{activeSlide.overview}</p>)} */}
           </div>
 
           <div className="mobileBackdrop d-md-none">
@@ -108,7 +116,7 @@ const Intro = () => {
             style={{
               backgroundImage:`linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 20%), linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 10%), url(${import.meta.env.VITE_IMG_URL}/${activeSlide.backdrop_path})`,
               position:"absolute",
-              top:"25%",
+              top:"13%",
               right:"0",
               width:"100vw",
               height:"50vw",
@@ -158,19 +166,23 @@ const Intro = () => {
                   position:"relative",
                 }}
                 >
-                  <Card>
-                    <Link to={`/movie/${results.id}`}>
-                      <Card.Img 
-                      src={`${import.meta.env.VITE_IMG_URL}/${results.poster_path}`} 
-                      alt="test gagal"
-                      className="imagesIntro" 
-                      />
+                  <Card className="hover-card">
+                    <Link to={`/movie/${results.id}`} className="card-link">
+                    <div className="card-image-wrapper">
+                        <Card.Img 
+                        src={`${import.meta.env.VITE_IMG_URL}/${results.poster_path}`} 
+                        alt="test gagal"
+                        className="card-image" 
+                        />
+                        <div className="play-icon"><FaPlay/></div>
+                      </div>
                   </Link>
                   </Card>
                 </SwiperSlide>
               )
             })}
           </Swiper>
+          {/* DESKTOP */}
           <div className="buttonIntroGroup d-flex justify-content-between align-items-center d-none d-md-flex"
             style={{
               width:"40vw",
@@ -183,17 +195,18 @@ const Intro = () => {
           <Button className="swiper-button-next position-absolute end-0" ></Button>
           <Button className="swiper-button-prev position-absolute start-0" ></Button>
         </div>
+        {/* MOBILE */}
         <div className="buttonIntroGroup d-flex justify-content-between align-items-center d-md-none"
             style={{
-              width:"90vw",
+              width:"100vw",
               height:"100px",
               position:"absolute",
-              bottom: -20,
-              left:"5%",
+              top:"130px",
+              left:"0",
             }}
           >
-          <Button className="swiper-button-next position-absolute end-0" ></Button>
-          <Button className="swiper-button-prev position-absolute start-0" ></Button>
+          <Button className="swiper-button-next position-absolute end-0"></Button>
+          <Button className="swiper-button-prev position-absolute start-0"></Button>
         </div>
         </div>
       </Container>
