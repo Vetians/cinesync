@@ -2,6 +2,7 @@ import "../style/landingPage.css"
 import Intro from "./Intro";
 import Trending from "./Trending";
 import Upcoming from "./Upcoming";
+import Footer from "./Footer"
 
 const LandingPage = () => {
 
@@ -16,6 +17,9 @@ const LandingPage = () => {
             <div className="upcoming">
             <Upcoming />
             </div>
+            {/* <div className="footer">
+            <Footer/>
+            </div> */}
         </div>
     )
 }

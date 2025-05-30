@@ -31,7 +31,7 @@ const Trending = () => {
                 <br />
             {/* Judul + Tombol Navigasi */}
             <div className="d-flex justify-content-between w-100 align-items-center">
-                <h1 className="text-white">TRENDING MOVIES</h1>
+                <h1 className="text-white" id="trending">TRENDING MOVIES</h1>
 
                 <div className="buttonSwiper d-flex justify-content-end gap-1">
                     <Button
@@ -65,7 +65,6 @@ const Trending = () => {
                     slidesPerView={"auto"}
                     grabCursor={true}
                     className="mySwiper"
-                    id="trending"
                     >
                         {movies?.map((results, index) => {
                             return (

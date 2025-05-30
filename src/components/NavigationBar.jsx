@@ -60,11 +60,14 @@ export const NavigationBar = ({onSearchResult, onSearchQuery}) => {
         const currentScroll = window.scrollY
         const intro = document.getElementById("intro")
         const introHeight = intro?.offsetHeight || 0
-
-        if(currentScroll > lastScroll.current) {
-            setIsScrollingDown(true)
-        }else{
+        if(currentScroll < 13){
             setIsScrollingDown(false)
+        }else {
+            if(currentScroll > lastScroll.current) {
+                setIsScrollingDown(true)
+            }else{
+                setIsScrollingDown(false)
+            }
         }
         lastScroll.current = currentScroll
 

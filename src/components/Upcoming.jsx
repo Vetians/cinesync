@@ -28,7 +28,7 @@ const Upcoming = () => {
         <Container className="container-upcoming"> 
             <br />
             <div className="d-flex justify-content-between align-items-center w-100">
-                <h1 className="text-white">UPCOMING MOVIE</h1>
+                <h1 className="text-white" id="upcoming">UPCOMING MOVIE</h1>
                 <div className="d-flex justify-content-end gap-1">
                     <Button
                     className="swiperLeftUpcoming"
@@ -61,7 +61,6 @@ const Upcoming = () => {
             spaceBetween={10}
             slidesPerView={"auto"}
             className="mySwiper"
-            id="upcoming"
             >
                 {Upcoming?.map((results, index) => {
                     return (
