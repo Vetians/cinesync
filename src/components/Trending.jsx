@@ -81,7 +81,7 @@ const Trending = () => {
                                         <Card.Img 
                                             variant="top"
                                             src={`${import.meta.env.VITE_IMG_URL}/${results.poster_path}`} 
-                                            alt="Test" 
+                                            alt="" 
                                             className="card-image"
                                             />
                                         <div className="play-icon"><FaPlay/></div>

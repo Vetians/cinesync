@@ -4,13 +4,14 @@ import { useNavigate, useLocation } from "react-router-dom"
 import { useState, useEffect, useRef } from "react"
 import { FaSearch } from "react-icons/fa";
 
-export const NavigationBar = ({onSearchResult, onSearchQuery}) => {
+export const NavigationBar = ({onSearchResult, onSearchQuery, setCurrentPage, setTotalPages}) => {
     const navigate = useNavigate()
     const location = useLocation()
     const [query, setQuery] = useState("")
     const [isScrollingDown, setIsScrollingDown] = useState(false)
     const lastScroll = useRef(0)
     const [showBottomBackground, setShowBottomBackground] = useState(false)
+    // const [totalPages, setTotalPages] = useState(1)
 
     const handleNavClick = (targetId) => {
         if (location.pathname !== "/"){
@@ -35,8 +36,11 @@ export const NavigationBar = ({onSearchResult, onSearchQuery}) => {
             onSearchResult(results.results)
             onSearchQuery(query)
             navigate("/search")
+            setCurrentPage && setCurrentPage(1)
+            setTotalPages && setTotalPages(results.total_pages)
         }else{
             onSearchResult([])
+            setTotalPages && setTotalPages(1)
         }
     }
 
@@ -44,7 +48,7 @@ export const NavigationBar = ({onSearchResult, onSearchQuery}) => {
         const search = await axios.get(`${import.meta.env.VITE_BASE_URL}/search/movie`, {
             params :{
                 query: q,
-                api_key: import.meta.env.VITE_TMDB_KEY
+                api_key: import.meta.env.VITE_TMDB_KEY,
             }
         })
         return search.data

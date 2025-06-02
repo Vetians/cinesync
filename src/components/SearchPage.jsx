@@ -1,35 +1,106 @@
-import {Card, Container, Row, Col, Navbar, Nav, Button} from "react-bootstrap"
+import {Card, Container, Image, Button} from "react-bootstrap"
+import { Link } from 'react-router-dom'
+import { useEffect, useState } from "react"
+import axios from "axios"
+import PaginationComponent from "./PaginationComponent"
 
-const SearchPage = ({movies, searchQuery}) =>{
+import fallback from "../assets/fallback-image.png"
+
+import { FaPlay } from "react-icons/fa"
+
+const SearchPage = ({searchQuery, currentPage, setCurrentPage, totalPages, setTotalPages}) =>{
+    
+    const [paginatedMovies, setPaginatedMovies] = useState([])
+
+    useEffect(() => {
+        const fetchMoviesByPage = async () => {
+            if(searchQuery.length > 0){
+                try{
+                    const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/search/movie`, {
+                        params: {
+                            api_key: import.meta.env.VITE_TMDB_KEY,
+                            query: searchQuery,
+                            page: currentPage,
+                        },
+                    })
+                    console.log("data search: ", res.data)
+                    setPaginatedMovies(res.data.results)
+                    setTotalPages(res.data.total_pages)
+                } catch (err){
+                    console.error("gagal fetch data:", err)
+                }
+            }
+        }
+        fetchMoviesByPage()
+    }, [searchQuery, currentPage, setTotalPages])
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    },[currentPage])
+    
     return (
         <div>
-            <div className="searchPagess d-flex pt-4 pb-5">
+            <div className="searchPagess d-flex pt-5">
             <Container>
                 <br />
                 <h1 className="text-white">Hasil Pencarian untuk: "{searchQuery}" </h1>
                 <br />
-                <div className="overflow-auto py-3">
-                    <Row className="flex-nowrap gx-3">
-                        {movies.map((results, index) => {
+                <div style={{
+                    height:"auto",
+                    display:"flex",
+                    flexDirection:"column"
+                }}>
+                        {paginatedMovies.map((results) => {
                             return (
-                                <Col style={{ flex: "0 0 auto", width: "200px" }} className="movieWrapper" id="trending" key={index}>
-                                    <Card className="movieImage">
-                                        <Card.Img variant="top" src={`${import.meta.env.VITE_IMG_URL}/${results.poster_path}`} alt="Test" className="images"/>
-                                            <div className="bg-dark">
+                                    <div 
+                                    key={results.id}
+                                    className="movieWrapper-searchpage text-white" 
+                                    style={{
+                                        display:"flex",
+                                        width:"100%",
+                                        borderBottom:"1px solid #555f",
+                                        padding:"15px"
+                                    }}
+                                    >
+                                        <Card className="hover-card">
+                                            <Link to={`/movie/${results.id}`} className="card-link">
+                                            <div className="card-image-wrapper">
+                                                <Card.Img
+                                                src={
+                                                    results.poster_path 
+                                                    ? `${import.meta.env.VITE_IMG_URL}/${results.poster_path}`
+                                                    : fallback
+                                                }
+                                                // className="card-image"
+                                                style={{
+                                                    width:"200px"
+                                                }}
+                                                />
+                                                <div className="play-icon"><FaPlay/></div>
+                                            </div>
+                                            </Link>
+                                        </Card>
+                                            <div className="bg-dark" style={{flex:"1"}}>
                                                 <div className="p-2 m-1 text-white">
-                                                <Card.Title style={{ fontSize: "1rem" }} className="text-center">{results.title}</Card.Title>
-                                                <Card.Text className="text-left overview">
+                                                <div style={{ fontSize: "2rem", fontWeight:"bold"}}>{results.title}</div>
+                                                <div className="text-left overview">
                                                 {results.overview}
-                                                </Card.Text>
-                                                <Card.Text className="text-left">{results.release_date}</Card.Text>
+                                                </div>
+                                                <div className="text-left">{results.release_date}</div>
                                                 </div>
                                             </div>
-                                    </Card>
-                                </Col>
+                                    </div>
                             )
                         })}
-                    </Row>
                 </div>
+                        <div>
+                        <PaginationComponent
+                        currentPage = {currentPage}
+                        totalPages = {totalPages}
+                        onPageChange = {setCurrentPage}
+                        />
+                        </div>
+
             </Container>
         </div>
         </div>

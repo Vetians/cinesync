@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import { Container, Image } from "react-bootstrap"
 import "../style/movieDetail.css"
+import fallback from "../assets/fallback-image.png"
 
 const MovieDetail = () => {
     const {id} = useParams()
@@ -35,17 +36,22 @@ const MovieDetail = () => {
             <div 
                 className="detail-backdrop"
                 style={{
-                    backgroundImage: `url(${import.meta.env.VITE_IMG_URL}/${movie.backdrop_path})`,
+                    backgroundImage: `url(${
+                        movie.backdrop_path
+                        ? `${import.meta.env.VITE_IMG_URL}/${movie.backdrop_path}` 
+                        : movie.poster_path 
+                            ? `${import.meta.env.VITE_IMG_URL}/${movie.poster_path}`
+                            : fallback
+                    })`,
                     backgroundSize:"cover",
                     height:"100%",
                     width:"100%",
                     filter:"brightness(0.6)",
                     position:"absolute",
                     top:"0px",
-                    zIndex:1
+                    zIndex:1,
                 }}
             ></div>
-            
                 <div className="wrapper-detail d-flex z-2"
                 style={{
                     position:"absolute",
