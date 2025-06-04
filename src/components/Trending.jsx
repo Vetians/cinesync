@@ -4,6 +4,8 @@ import axios from "axios"
 import {Swiper, SwiperSlide} from "swiper/react"
 import { Navigation } from "swiper/modules"
 import { Link } from 'react-router-dom'
+import logo_play from "../assets/logo_play.png"
+
 
 import "swiper/css"
 import "swiper/css/navigation"
@@ -84,7 +86,7 @@ const Trending = () => {
                                             alt="" 
                                             className="card-image"
                                             />
-                                        <div className="play-icon"><FaPlay/></div>
+                                        <div className="play-icon"><img src={logo_play} alt="play-logo" className="play-logo" /></div>
                                         </div>
                                     </Link>
                                 </Card>

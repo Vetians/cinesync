@@ -3,8 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Card, Row, Col, Container, Pagination } from "react-bootstrap";
 import PaginationComponent from "./PaginationComponent"
-
-import {FaPlay } from "react-icons/fa"
+import logo_play from "../assets/logo_play.png"
 
 const GenrePage = () => {
 
@@ -102,7 +101,7 @@ const GenrePage = () => {
                                         alt="" 
                                         className="card-image"
                                         />
-                                    <div className="play-icon"><FaPlay/></div>
+                                    <div className="play-icon"><img src={logo_play} alt="play-logo" className="play-logo" /></div>
                                     </div>
                                 </Link>
                             </Card>
