@@ -100,7 +100,6 @@ const SearchPage = ({searchQuery, currentPage, setCurrentPage, totalPages, setTo
                         onPageChange = {setCurrentPage}
                         />
                         </div>
-
             </Container>
         </div>
         </div>

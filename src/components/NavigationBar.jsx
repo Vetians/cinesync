@@ -3,8 +3,9 @@ import axios from "axios"
 import { useNavigate, useLocation } from "react-router-dom"
 import { useState, useEffect, useRef } from "react"
 import { FaSearch } from "react-icons/fa";
+import { RiHomeHeartFill } from "react-icons/ri";
 
-export const NavigationBar = ({onSearchResult, onSearchQuery, setCurrentPage, setTotalPages}) => {
+const NavigationBar = ({onSearchResult, onSearchQuery, setCurrentPage, setTotalPages}) => {
     const navigate = useNavigate()
     const location = useLocation()
     const [query, setQuery] = useState("")
@@ -90,17 +91,20 @@ export const NavigationBar = ({onSearchResult, onSearchQuery, setCurrentPage, se
 
     return (
         <div>
-        <Navbar id="navbar" expand="md" bg="dark" variant="dark" className={`fixed-top px-3 py-2 transition-all ${isScrollingDown ?  "navbar-hidden" : "navbar-visible"}`}>
+        <Navbar id="navbar" expand="md" bg="dark" variant="dark" className={`fixed-top px-3 pt-2 pb-1 transition-all ${isScrollingDown ?  "navbar-hidden" : "navbar-visible"}`}>
             <Container>
                 <div className="containerTop d-flex text-nowrap justify-content-between align-items-center w-100 mb-1">
-                    <div className="brandName fw-bold fs-4 text-white me-2">Cinesync</div>
+                    <Button variant="dark" className="brandName fw-bold fs-4 text-white me-2" onClick={() => {handleNavClick("intro")}}>Cinesync</Button>
                     <div className="searchGroup d-flex justify-content-end">
                         <div variant="dark" className = "d-flex justify-content-around gap-2 d-none d-md-flex">
                             <Nav className="d-flex flex-row w-100 justify-content-around">
+                                {/* <NavItem>
+                                    <Nav.Link onClick={() => {handleNavClick("intro")}}></Nav.Link>
+                                </NavItem> */}
                                 <NavItem>
-                                    <Nav.Link onClick={() => {handleNavClick("intro")}}>Home</Nav.Link>
+                                    <Button variant = "outline-light" onClick={() =>  navigate("/genres")}>GENRES</Button>
                                 </NavItem>
-                                <NavItem>
+                                {/* <NavItem>
                                     <Nav.Link 
                                     onClick={() => {handleNavClick("trending")}}
                                         >
@@ -109,7 +113,7 @@ export const NavigationBar = ({onSearchResult, onSearchQuery, setCurrentPage, se
                                 </NavItem>
                                 <NavItem>
                                     <Nav.Link onClick={() => {handleNavClick("upcoming")}}>Upcoming</Nav.Link>
-                                </NavItem>      
+                                </NavItem>       */}
                             </Nav>
                         </div>
                             <NavItem className="movieSearch d-flex align-items-center gap-2" >
@@ -148,6 +152,12 @@ export const NavigationBar = ({onSearchResult, onSearchQuery, setCurrentPage, se
                         </div>
                         </Container>
                     </Navbar>
+                    {/* <Button 
+                    style={{
+                        position:"absolute",
+                        bottom:"20px",
+                        zIndex:10
+                    }}><RiHomeHeartFill  style={{fontSize:"25px"}}/></Button> */}
         </div>
     )
 }

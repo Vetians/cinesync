@@ -8,6 +8,9 @@ import MovieDetail from './components/MovieDetail'
 import {useState} from 'react'
 import ScrollToTop from './components/ScrollToTop'
 import Footer from './components/Footer'
+import GenreList from './components/GenreList'
+import GenrePage from './components/GenrePage'
+import ButtonTop from './components/ButtonTop'
 
 const App = () => {
 
@@ -32,10 +35,27 @@ const App = () => {
           {/* movie detail */}
             <Route path='/movie/:id' element = {<MovieDetail />} />
           {/* end of movie detail */}
+
+          {/* genre list */}
+          <Route path='/genres' element = {
+            <div className='genreList'>
+            <GenreList />
+            </div>
+            } />
+          {/* end of genre list */}
+
+          {/* genre page */}
+            <Route path='/genre/:genreId' element = {
+              <div className='genrePage'>
+              <GenrePage currentPage = {currentPage} setCurrentPage = {setCurrentPage} totalPages = {totalPages} setTotalPages = {setTotalPages}/>
+              </div>
+              } />
+          {/* end of genre page */}
         </Routes>
         <div className='footer'>
           <Footer />
         </div>
+        <ButtonTop />
       </Router>
   )
 }
