@@ -6,12 +6,12 @@ import { FaHeart, FaRegHeart, FaStar } from 'react-icons/fa';
 import "../style/movieDetail.css"
 import fallback from "../assets/fallback-image.png"
 import AddRating from "./AddRating"
-import { useAuth } from "../context/useAuth";
-import { toggleWatchlist, getUserAccount, getMovieAccountStates } from "../api/tmdb"; // Import yang sudah disesuaikan
+import { useAuth } from "/src/context/useAuth.js"; // Path relatif yang benar
+import { toggleWatchlist, getUserAccount } from "/src/api/tmdb.js"; // Path relatif yang benar
 import ReviewItem from './ReviewItem'; // Pastikan ini diimpor
 
-// Definisikan URL dasar YouTube embed yang benar di luar komponen
-const YOUTUBE_EMBED_BASE_URL = "https://www.youtube.com/embed/"; // URL standar YouTube embed dengan HTTPS
+// PERBAIKAN DI SINI: Gunakan URL HTTPS standar YouTube embed
+const YOUTUBE_EMBED_BASE_URL = "https://www.youtube.com/embed/"; 
 
 const MovieDetail = () => {
     const { id } = useParams()
@@ -71,20 +71,12 @@ const MovieDetail = () => {
                 });
                 setReviews(reviewRes.data.results);
 
-                // Fetch user's account states (termasuk rating pribadi dan status watchlist)
-                if (sessionId) {
-                    const accountStates = await getMovieAccountStates(parseInt(id), sessionId);
-                    if (accountStates) {
-                        setIsInWatchlist(accountStates.watchlist);
-                        if (accountStates.rated && typeof accountStates.rated.value === 'number') {
-                            setUserRating(accountStates.rated.value);
-                        } else {
-                            setUserRating(0);
-                        }
-                    }
-                } else {
-                    setIsInWatchlist(false);
-                    setUserRating(0);
+
+                if (sessionId && accountDetails?.id) {
+                    // checkIfInWatchlist tidak lagi digunakan langsung di sini
+                    // Status watchlist sudah diambil dari getMovieAccountStates
+                    // const inWatchlist = await checkIfInWatchlist(parseInt(id), sessionId);
+                    // setIsInWatchlist(inWatchlist);
                 }
 
             } catch(error){
