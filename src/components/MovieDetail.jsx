@@ -7,9 +7,11 @@ import "../style/movieDetail.css"
 import fallback from "../assets/fallback-image.png"
 import AddRating from "./AddRating"
 import { useAuth } from "../context/useAuth";
-// Tambahkan getMovieAccountStates dan deleteMovieRating ke import
-import { toggleWatchlist, getUserAccount, getMovieAccountStates } from "../api/tmdb";
+import { toggleWatchlist, getUserAccount, getMovieAccountStates } from "../api/tmdb"; // Import yang sudah disesuaikan
 import ReviewItem from './ReviewItem'; // Pastikan ini diimpor
+
+// Definisikan URL dasar YouTube embed yang benar di luar komponen
+const YOUTUBE_EMBED_BASE_URL = "https://www.youtube.com/embed/"; // URL standar YouTube embed dengan HTTPS
 
 const MovieDetail = () => {
     const { id } = useParams()
@@ -21,7 +23,6 @@ const MovieDetail = () => {
     const [accountId, setAccountId] = useState(null);
     const [trailerKey, setTrailerKey] = useState(null);
     const [reviews, setReviews] = useState([]);
-    // State BARU untuk rating pengguna saat ini
     const [userRating, setUserRating] = useState(0);
 
     useEffect(() => {
@@ -71,18 +72,17 @@ const MovieDetail = () => {
                 setReviews(reviewRes.data.results);
 
                 // Fetch user's account states (termasuk rating pribadi dan status watchlist)
-                if (sessionId) { // Hanya fetch jika sudah login
+                if (sessionId) {
                     const accountStates = await getMovieAccountStates(parseInt(id), sessionId);
                     if (accountStates) {
                         setIsInWatchlist(accountStates.watchlist);
                         if (accountStates.rated && typeof accountStates.rated.value === 'number') {
                             setUserRating(accountStates.rated.value);
                         } else {
-                            setUserRating(0); // Reset jika belum dirating
+                            setUserRating(0);
                         }
                     }
                 } else {
-                    // Reset states jika tidak login
                     setIsInWatchlist(false);
                     setUserRating(0);
                 }
@@ -114,9 +114,8 @@ const MovieDetail = () => {
         }
     };
 
-    // Callback saat rating di AddRating diubah/dihapus
     const handleRatingChange = (newRating) => {
-        setUserRating(newRating); // Perbarui state userRating di MovieDetail
+        setUserRating(newRating);
     };
 
     const formatCurrency = (amount) => {
@@ -205,9 +204,7 @@ const MovieDetail = () => {
                                 </Button>
                                 {watchlistMessage && <span className={`ms-2 small ${watchlistMessage.includes('berhasil') || watchlistMessage.includes('Terhapus') ? 'text-success' : 'text-warning'}`}>{watchlistMessage}</span>}
                                 <div className="ms-md-auto">
-                                    {/* Meneruskan initialRating dan onRated (callback) ke AddRating */}
                                     <AddRating movieId={movie.id} initialRating={userRating} onRated={handleRatingChange} />
-                                
                                 </div>
                             </div>
 
@@ -258,7 +255,8 @@ const MovieDetail = () => {
                                     className="embed-responsive-item"
                                     width="100%"
                                     height="500px"
-                                    src={`http://www.youtube.com/embed/${trailerKey}?autoplay=0&controls=1&modestbranding=1&rel=0`}
+                                    // PERBAIKAN DI SINI: Gunakan YOUTUBE_EMBED_BASE_URL
+                                    src={`${YOUTUBE_EMBED_BASE_URL}${trailerKey}?autoplay=0&controls=1&modestbranding=1&rel=0`}
                                     title="Movie Trailer"
                                     frameBorder="0"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -267,6 +265,7 @@ const MovieDetail = () => {
                             </div>
                         </div>
                     )}
+
 
                     <div className="mt-5 p-4 rounded-3 movie-info-card">
                         <h5 className="mb-4">Pemeran Utama:</h5>
@@ -291,7 +290,7 @@ const MovieDetail = () => {
                                     <p className="mt-2 mb-0" style={{fontSize:"0.9rem", wordWrap: "break-word"}}>
                                         <strong>{actor.name}</strong><br />
                                         {actor.character && actor.character.trim() !== '' && (
-                                            <small className="text-white-50">({actor.character})</small>
+                                            <small className="text-muted">({actor.character})</small>
                                         )}
                                     </p>
                                 </Col>
