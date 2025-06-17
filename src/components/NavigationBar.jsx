@@ -1,9 +1,11 @@
-import { Navbar, Container, Nav, Button, NavItem } from "react-bootstrap"
+import { Navbar, Container, Nav, Button, NavItem, NavDropdown } from "react-bootstrap"
 import axios from "axios"
 import { useNavigate, useLocation } from "react-router-dom"
 import { useState, useEffect, useRef } from "react"
 import { FaSearch } from "react-icons/fa";
-import { RiHomeHeartFill } from "react-icons/ri";
+import { useAuth } from "../context/useAuth";
+
+import { FaUserCircle } from "react-icons/fa";
 
 const NavigationBar = ({onSearchResult, onSearchQuery, setCurrentPage, setTotalPages}) => {
     const navigate = useNavigate()
@@ -12,7 +14,24 @@ const NavigationBar = ({onSearchResult, onSearchQuery, setCurrentPage, setTotalP
     const [isScrollingDown, setIsScrollingDown] = useState(false)
     const lastScroll = useRef(0)
     const [showBottomBackground, setShowBottomBackground] = useState(false)
-    // const [totalPages, setTotalPages] = useState(1)
+    const {user, logout} = useAuth();
+
+    const handleLogin = async () => {
+        try {
+            const response = await axios.get(`https://api.themoviedb.org/3/authentication/token/new`, {
+                params:{
+                    api_key: import.meta.env.VITE_TMDB_KEY,
+                },
+            })
+
+            const requestToken =  response.data.request_token;
+
+            const redirectUrl = `${window.location.origin}/callback`;
+            window.location.href = `https://www.themoviedb.org/authenticate/${requestToken}?redirect_to=${redirectUrl}`;
+        } catch (error){
+            console.error("failed to initiate login", error)
+        }
+    }
 
     const handleNavClick = (targetId) => {
         if (location.pathname !== "/"){
@@ -98,22 +117,9 @@ const NavigationBar = ({onSearchResult, onSearchQuery, setCurrentPage, setTotalP
                     <div className="searchGroup d-flex justify-content-end">
                         <div variant="dark" className = "d-flex justify-content-around gap-2 d-none d-md-flex">
                             <Nav className="d-flex flex-row w-100 justify-content-around">
-                                {/* <NavItem>
-                                    <Nav.Link onClick={() => {handleNavClick("intro")}}></Nav.Link>
-                                </NavItem> */}
                                 <NavItem>
                                     <Button variant = "outline-light" onClick={() =>  navigate("/genres")}>GENRES</Button>
                                 </NavItem>
-                                {/* <NavItem>
-                                    <Nav.Link 
-                                    onClick={() => {handleNavClick("trending")}}
-                                        >
-                                            Trending
-                                    </Nav.Link>
-                                </NavItem>
-                                <NavItem>
-                                    <Nav.Link onClick={() => {handleNavClick("upcoming")}}>Upcoming</Nav.Link>
-                                </NavItem>       */}
                             </Nav>
                         </div>
                             <NavItem className="movieSearch d-flex align-items-center gap-2" >
@@ -127,10 +133,56 @@ const NavigationBar = ({onSearchResult, onSearchQuery, setCurrentPage, setTotalP
                                     <NavItem>
                                         <Button variant = "outline-light" onClick={search}><FaSearch/></Button>
                                     </NavItem>
+                                       {user ? (
+                                                    <NavDropdown
+                                                        title={
+                                                        <img
+                                                            src={
+                                                            user.avatar?.tmdb?.avatar_path
+                                                                ? `https://image.tmdb.org/t/p/w45${user.avatar.tmdb.avatar_path}`
+                                                                : user.avatar?.gravatar?.hash
+                                                                ? `https://www.gravatar.com/avatar/${user.avatar.gravatar.hash}?s=45&d=identicon`
+                                                                : `https://ui-avatars.com/api/?name=${encodeURIComponent(user.username)}&size=45`
+                                                            }
+                                                            alt="avatar"
+                                                            className="rounded-circle"
+                                                            style={{ width: "35px", height: "35px", marginLeft: "10px" }}
+                                                        />
+                                                        }
+                                                        id="user-dropdown"
+                                                        menuVariant="dark"
+                                                        align="end"
+                                                    >
+                                                        <NavDropdown.Item onClick={() => navigate(`/profile/${user.username}`)}>
+                                                        Detail
+                                                        </NavDropdown.Item>
+                                                        <NavDropdown.Divider />
+                                                        <NavDropdown.Item onClick={logout}>
+                                                        Logout
+                                                        </NavDropdown.Item>
+                                                    </NavDropdown>
+                                                ) : (
+                                                    <NavDropdown
+                                                        title={<FaUserCircle size={35} color="white" />}
+                                                        id="login-dropdown"
+                                                        menuVariant="dark"
+                                                        align="end"
+                                                        style={{ marginLeft: "10px" }}
+                                                    >
+                                                        <NavDropdown.Item onClick={handleLogin}>
+                                                        Login
+                                                        </NavDropdown.Item>
+                                                        <NavDropdown.Item onClick={() => navigate("/register")}>
+                                                        Register
+                                                        </NavDropdown.Item>
+                                                    </NavDropdown>
+                                        )}
                     </div>
                 </div>
             </Container>
         </Navbar>
+
+        {/* tampilan mobile */}
                     <Navbar variant="dark">
                         <Container>
                         <div className={`containerBottom d-md-none ${showBottomBackground ? 'solid' : 'transparent'}`}>
@@ -152,12 +204,6 @@ const NavigationBar = ({onSearchResult, onSearchQuery, setCurrentPage, setTotalP
                         </div>
                         </Container>
                     </Navbar>
-                    {/* <Button 
-                    style={{
-                        position:"absolute",
-                        bottom:"20px",
-                        zIndex:10
-                    }}><RiHomeHeartFill  style={{fontSize:"25px"}}/></Button> */}
         </div>
     )
 }

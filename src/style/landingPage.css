@@ -365,3 +365,40 @@
     background-color: #0B192C;
 }
 
+.profile{
+    height: auto;
+    background-color: #0B192C;
+}
+
+.profile-account-container{
+    height: 20dvh;
+    background-color: #075B5E;
+}
+
+.star-rating {
+  display: flex;
+  gap: 2px;
+}
+
+.star-wrapper {
+  position: relative;
+  width: 16px;
+  height: 16px;
+}
+
+.star-empty {
+  color: gray;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.star-filled {
+  color: gold;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
