@@ -170,10 +170,7 @@ const NavigationBar = ({onSearchResult, onSearchQuery, setCurrentPage, setTotalP
                                                         style={{ marginLeft: "10px" }}
                                                     >
                                                         <NavDropdown.Item onClick={handleLogin}>
-                                                        Login
-                                                        </NavDropdown.Item>
-                                                        <NavDropdown.Item onClick={() => navigate("/register")}>
-                                                        Register
+                                                        Login/Register
                                                         </NavDropdown.Item>
                                                     </NavDropdown>
                                         )}
