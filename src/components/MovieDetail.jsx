@@ -282,7 +282,7 @@ const MovieDetail = () => {
                                     <p className="mt-2 mb-0" style={{fontSize:"0.9rem", wordWrap: "break-word"}}>
                                         <strong>{actor.name}</strong><br />
                                         {actor.character && actor.character.trim() !== '' && (
-                                            <small className="text-muted">({actor.character})</small>
+                                            <small className="text-white-50">({actor.character})</small>
                                         )}
                                     </p>
                                 </Col>
