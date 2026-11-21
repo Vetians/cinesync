@@ -22,17 +22,7 @@ const GenreList = () => {
 
     return (
         <Container fluid style={{position:"relative"}}>
-            <div 
-            className="genre-list-wrapper"
-            style={{
-                height:"600px",
-                width:"1360px",
-                backgroundColor:"#0B192C",
-                position:"absolute",
-                top:"100px",
-                left:"70px",
-            }}
-            >
+            <div className="genre-list-wrapper">
                 <div style={{
                     borderBottom:"1px solid #555f",
                     marginBottom:"30px"

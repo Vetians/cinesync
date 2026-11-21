@@ -68,7 +68,7 @@ const GenrePage = () => {
     },[currentPage])
 
     return (
-        <Container fluid style={{position:"relative", padding:"60px"}}>
+        <Container fluid className="genre-page-container" style={{position:"relative", padding:"60px"}}>
         <div className="moviesGenre-wrapper"
         style={{
             display:"flex",
@@ -89,10 +89,7 @@ const GenrePage = () => {
                 <div className="movies-grid">
                     {movies.map((results, index) => (
                         <div key={index} style={{ width: '100%' }}>
-                        <Card className="hover-card"                             
-                            style={{
-                            width:"250px",
-                                }}>
+                        <Card className="hover-card">
                                 <Link to={`/movie/${results.id}`} className="card-link">
                                     <div className="card-image-wrapper">
                                     <Card.Img 

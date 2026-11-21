@@ -2,7 +2,7 @@ import { Navbar, Container, Nav, Button, NavItem, NavDropdown } from "react-boot
 import axios from "axios"
 import { useNavigate, useLocation } from "react-router-dom"
 import { useState, useEffect, useRef } from "react"
-import { FaSearch } from "react-icons/fa";
+import { FaSearch, FaTimes } from "react-icons/fa";
 import { useAuth } from "../context/useAuth";
 
 import { FaUserCircle } from "react-icons/fa";
@@ -11,6 +11,8 @@ const NavigationBar = ({onSearchResult, onSearchQuery, setCurrentPage, setTotalP
     const navigate = useNavigate()
     const location = useLocation()
     const [query, setQuery] = useState("")
+    const [isSearchOpen, setIsSearchOpen] = useState(false)
+    const searchInputRef = useRef(null)
     const [isScrollingDown, setIsScrollingDown] = useState(false)
     const lastScroll = useRef(0)
     const [showBottomBackground, setShowBottomBackground] = useState(false)
@@ -76,9 +78,26 @@ const NavigationBar = ({onSearchResult, onSearchQuery, setCurrentPage, setTotalP
 
     const handleKeyDown = (e) => {
         if (e.key === "Enter"){
-            search()
+            handleSearchSubmit()
+            setIsSearchOpen(false)
+        }
+        if (e.key === "Escape") {
+            setIsSearchOpen(false)
         }
     }
+
+    const handleSearchButtonClick = () => {
+        setIsSearchOpen((isOpen) => !isOpen)
+    }
+
+    const handleSearchSubmit = () => {
+        search()
+        setIsSearchOpen(false)
+    }
+
+    useEffect(() => {
+        if (isSearchOpen) searchInputRef.current?.focus()
+    }, [isSearchOpen])
 
     const handleScroll = () => {
         const currentScroll = window.scrollY
@@ -114,7 +133,7 @@ const NavigationBar = ({onSearchResult, onSearchQuery, setCurrentPage, setTotalP
             <Container>
                 <div className="containerTop d-flex text-nowrap justify-content-between align-items-center w-100 mb-1">
                     <Button variant="dark" className="brandName fw-bold fs-4 text-white me-2" onClick={() => {handleNavClick("intro")}}>Cinesync</Button>
-                    <div className="searchGroup d-flex justify-content-end">
+                    <div className={`searchGroup d-flex justify-content-end ${isSearchOpen ? "search-open" : ""}`}>
                         <div variant="dark" className = "d-flex justify-content-around gap-2 d-none d-md-flex">
                             <Nav className="d-flex flex-row w-100 justify-content-around">
                                 <NavItem>
@@ -122,16 +141,32 @@ const NavigationBar = ({onSearchResult, onSearchQuery, setCurrentPage, setTotalP
                                 </NavItem>
                             </Nav>
                         </div>
-                            <NavItem className="movieSearch d-flex align-items-center gap-2" >
+                            <NavItem className="movieSearch">
                                         <input 
                                         placeholder="cari nama film" 
                                         className="form-control"
+                                        ref={searchInputRef}
+                                        aria-label="Cari film"
                                         onChange = {(e) => setQuery(e.target.value)}
                                         onKeyDown={handleKeyDown}
                                         />
+                                        <Button
+                                            variant="outline-light"
+                                            className="movieSearch-submit"
+                                            onClick={handleSearchSubmit}
+                                            aria-label="Cari"
+                                        >
+                                            <FaSearch />
+                                        </Button>
                                     </NavItem>
-                                    <NavItem>
-                                        <Button variant = "outline-light" onClick={search}><FaSearch/></Button>
+                                    <NavItem className="mobile-search-toggle">
+                                        <Button
+                                            variant="outline-light"
+                                            onClick={handleSearchButtonClick}
+                                            aria-label={isSearchOpen ? "Tutup pencarian" : "Buka pencarian"}
+                                        >
+                                            {isSearchOpen ? <FaTimes /> : <FaSearch />}
+                                        </Button>
                                     </NavItem>
                                        {user ? (
                                                     <NavDropdown
